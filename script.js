@@ -291,6 +291,9 @@ function initAdmin() {
   var formPreview = document.getElementById('post-preview');
   var btnPublish = document.getElementById('btn-publish');
   var btnPreview = document.getElementById('btn-preview');
+  var btnInsertImage = document.getElementById('btn-insert-image');
+  var imageFileInput = document.getElementById('image-file-input');
+  var uploadStatus = document.getElementById('upload-status');
   var tableBody = document.getElementById('posts-table-body');
   var statusMsg = document.getElementById('status-msg');
 
@@ -330,6 +333,100 @@ function initAdmin() {
       formContent.style.display = 'block';
       btnPreview.textContent = '预览';
     }
+  });
+
+  // 图片上传功能
+  btnInsertImage.addEventListener('click', function() {
+    imageFileInput.click();
+  });
+
+  imageFileInput.addEventListener('change', function(e) {
+    var file = e.target.files[0];
+    if (!file) return;
+
+    // 校验文件类型和大小（限制 2MB）
+    if (!file.type.startsWith('image/')) {
+      setStatus('请选择图片文件', true);
+      return;
+    }
+    if (file.size > 2 * 1024 * 1024) {
+      setStatus('图片大小不能超过 2MB', true);
+      return;
+    }
+
+    uploadStatus.style.display = 'block';
+    uploadStatus.textContent = '正在上传图片...';
+
+    var reader = new FileReader();
+    reader.onload = function(ev) {
+      var base64Full = ev.target.result;
+      // 去掉 data:image/xxx;base64, 前缀
+      var base64Content = base64Full.split(',')[1];
+      if (!base64Content) {
+        uploadStatus.textContent = '读取图片失败';
+        return;
+      }
+
+      // 生成唯一文件名：年月日时分秒_随机数.ext
+      var ext = file.name.split('.').pop() || 'png';
+      var now = new Date();
+      var ts = now.getFullYear() +
+        String(now.getMonth()+1).padStart(2,'0') +
+        String(now.getDate()).padStart(2,'0') +
+        String(now.getHours()).padStart(2,'0') +
+        String(now.getMinutes()).padStart(2,'0') +
+        String(now.getSeconds()).padStart(2,'0');
+      var rand = Math.random().toString(36).substring(2, 6);
+      var fileName = ts + '_' + rand + '.' + ext;
+      var imagePath = 'images/' + fileName;
+
+      // 上传到 GitHub
+      var uploadUrl = '/repos/' + GITHUB_CONFIG.owner + '/' + GITHUB_CONFIG.repo +
+        '/contents/' + imagePath;
+      var body = {
+        message: 'Upload image: ' + fileName,
+        content: base64Content,
+        branch: GITHUB_CONFIG.branch
+      };
+      var headers = {
+        'Authorization': 'Bearer ' + GITHUB_CONFIG.token,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+      };
+
+      fetch('https://api.github.com' + uploadUrl, {
+        method: 'PUT', headers: headers, body: JSON.stringify(body)
+      }).then(function(res) {
+        if (!res.ok) {
+          return res.json().then(function(err) {
+            throw new Error(err.message || ('上传失败: ' + res.status));
+          });
+        }
+        return res.json();
+      }).then(function(result) {
+        // 图片 URL
+        var imageUrl = 'https://momot.top/' + imagePath;
+        // 插入 Markdown 图片语法到编辑器光标位置
+        var mdImg = '![' + file.name + '](' + imageUrl + ')';
+        var ta = formContent;
+        var start = ta.selectionStart;
+        var end = ta.selectionEnd;
+        var text = ta.value;
+        ta.value = text.substring(0, start) + '\n' + mdImg + '\n' + text.substring(end);
+        // 移动光标到插入内容之后
+        ta.selectionStart = ta.selectionEnd = start + mdImg.length + 2;
+        ta.focus();
+
+        uploadStatus.textContent = '图片已上传: ' + imageUrl;
+        setTimeout(function() { uploadStatus.style.display = 'none'; }, 5000);
+      }).catch(function(err) {
+        uploadStatus.textContent = '上传失败: ' + err.message;
+      });
+    };
+    reader.readAsDataURL(file);
+
+    // 清除文件选择器值，允许重复选择同一文件
+    imageFileInput.value = '';
   });
 
   // 状态提示
