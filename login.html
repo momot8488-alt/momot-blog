@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登录 - MoMot 管理后台</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-page">
+
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <div class="nav-logo">
+        <span class="nav-logo-text">
+          <span class="tm-top">TM</span>
+        </span>
+      </div>
+      <h1>MoMot 管理后台</h1>
+      <p>请输入密码以登录</p>
+    </div>
+    <form id="login-form" class="login-form">
+      <div class="form-group">
+        <input type="password" id="login-password" class="form-input" placeholder="输入密码" autocomplete="current-password" autofocus>
+      </div>
+      <div id="login-error" class="login-error" style="display:none;">密码错误，请重试</div>
+      <button type="submit" class="btn-login">登录</button>
+    </form>
+    <a href="./index.html" class="login-back">&larr; 返回首页</a>
+  </div>
+</div>
+
+<script>
+(function() {
+  if (sessionStorage.getItem('momot_admin_auth') === 'true') {
+    window.location.href = './admin.html';
+    return;
+  }
+  document.getElementById('login-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var pwd = document.getElementById('login-password').value;
+    if (pwd === 'admin123') {
+      sessionStorage.setItem('momot_admin_auth', 'true');
+      window.location.href = './admin.html';
+    } else {
+      var err = document.getElementById('login-error');
+      err.style.display = 'block';
+      document.getElementById('login-password').value = '';
+      document.getElementById('login-password').focus();
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
