@@ -635,6 +635,27 @@ a:hover { color: var(--gold); }
 .editor-toolbar label {
   margin-bottom: 0;
 }
+.toolbar-btns {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.btn-insert-image {
+  padding: 4px 14px;
+  font-size: 13px;
+  font-family: inherit;
+  background: #f0ece4;
+  color: var(--deep-blue);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-insert-image:hover {
+  background: var(--gold);
+  color: #fff;
+  border-color: var(--gold);
+}
 .btn-preview-toggle {
   padding: 4px 16px;
   font-size: 13px;
