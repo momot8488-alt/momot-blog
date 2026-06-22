@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理后台 - MoMot</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-page">
+
+<nav class="navbar admin-navbar">
+  <div class="nav-inner">
+    <a href="./index.html" class="nav-brand">
+      <div class="nav-logo">
+        <span class="nav-logo-text">
+          <span class="tm-top">TM</span>
+        </span>
+      </div>
+      <span class="nav-site-name">MoMot 管理后台</span>
+    </a>
+    <button id="btn-logout" class="btn-logout">退出登录</button>
+  </div>
+</nav>
+
+<div class="admin-layout">
+  <!-- Tabs -->
+  <div class="admin-tabs">
+    <button id="btn-write" class="admin-tab active">写文章</button>
+    <button id="btn-list" class="admin-tab">文章列表</button>
+  </div>
+
+  <!-- Status message -->
+  <div id="status-msg" class="status-msg" style="display:none;"></div>
+
+  <!-- Write Panel -->
+  <div id="panel-write" class="admin-panel">
+    <div class="form-group">
+      <label for="post-title">文章标题</label>
+      <input type="text" id="post-title" class="form-input" placeholder="输入文章标题...">
+    </div>
+    <div class="form-group">
+      <div class="editor-toolbar">
+        <label for="post-content">Markdown 内容</label>
+        <button type="button" id="btn-preview" class="btn-preview-toggle">预览</button>
+      </div>
+      <textarea id="post-content" class="form-textarea" rows="20" placeholder="使用 Markdown 书写文章内容..."></textarea>
+      <div id="post-preview" class="post-preview post-content" style="display:none;"></div>
+    </div>
+    <button id="btn-publish" class="btn-publish">发布文章</button>
+  </div>
+
+  <!-- List Panel -->
+  <div id="panel-list" class="admin-panel" style="display:none;">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>标题</th>
+          <th>日期</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody id="posts-table-body">
+        <tr><td colspan="3" class="loading-text">加载中...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
