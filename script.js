@@ -43,11 +43,21 @@ function githubAPI(endpoint, method, body) {
   });
 }
 
+// UTF-8 解码 base64 内容
+function decodeBase64UTF8(b64) {
+  var binary = atob(b64.replace(/\s/g, ''));
+  var bytes = new Uint8Array(binary.length);
+  for (var i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+  return new TextDecoder('utf-8').decode(bytes);
+}
+
 // 从 GitHub 读取 posts.json
 function fetchPostsFromGitHub() {
   var url = '/repos/' + GITHUB_CONFIG.owner + '/' + GITHUB_CONFIG.repo + '/contents/' + GITHUB_CONFIG.path + '?ref=' + GITHUB_CONFIG.branch;
   return githubAPI(url, 'GET').then(function(data) {
-    var content = atob(data.content.replace(/\s/g, ''));
+    var content = decodeBase64UTF8(data.content);
     return JSON.parse(content);
   });
 }
