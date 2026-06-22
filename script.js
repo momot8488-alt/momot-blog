@@ -344,13 +344,9 @@ function initAdmin() {
     var file = e.target.files[0];
     if (!file) return;
 
-    // 校验文件类型和大小（限制 2MB）
+    // 校验文件类型
     if (!file.type.startsWith('image/')) {
       setStatus('请选择图片文件', true);
-      return;
-    }
-    if (file.size > 2 * 1024 * 1024) {
-      setStatus('图片大小不能超过 2MB', true);
       return;
     }
 
