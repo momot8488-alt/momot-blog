@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">文章 - MoMot</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="./index.html" class="nav-brand">
+      <div class="nav-logo">
+        <span class="nav-logo-text">
+          <span class="tm-top">TM</span>
+        </span>
+      </div>
+      <span class="nav-site-name">MoMot</span>
+    </a>
+    <button class="nav-toggle" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="./index.html">首页</a></li>
+      <li><a href="./about.html">关于</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="main">
+  <article id="post-article">
+    <!-- Content injected by JS -->
+  </article>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 MoMot. Hosted on GitHub Pages. &mdash; momot.top</p>
+</footer>
+
+<script src="script.js"></script>
+<script>
+(function() {
+  var posts = {
+    "1": {
+      title: "使用纯静态方案搭建个人博客的完整指南",
+      date: "2026年6月20日",
+      tags: ["教程", "静态网站", "GitHub Pages"],
+      content: '<p>在 2026 年，搭建个人博客的方式比以往任何时候都更加丰富。从 WordPress 到 Notion，从 Medium 到 Ghost，选择众多。但有一种方案始终保持着独特的魅力——<strong>纯静态网站</strong>。</p>'
+        + '<h2>为什么选择静态网站</h2>'
+        + '<p>静态网站没有数据库、没有后端服务，所有的页面在构建时就已经生成完毕。这意味着：</p>'
+        + '<ul><li><strong>速度极快</strong>：无需服务器端处理，直接返回 HTML 文件。</li>'
+        + '<li><strong>安全性高</strong>：没有动态注入的可能，攻击面极小。</li>'
+        + '<li><strong>零成本托管</strong>：GitHub Pages、Netlify、Vercel 等平台提供免费静态托管。</li>'
+        + '<li><strong>维护简单</strong>：不需要升级 CMS、打安全补丁、优化数据库。</li></ul>'
+        + '<h2>技术选型</h2>'
+        + '<p>本博客使用的技术栈非常简单：</p>'
+        + '<ul><li>纯 HTML5 结构</li><li>CSS3 响应式布局（Grid + Flexbox）</li><li>原生 JavaScript（无框架依赖）</li></ul>'
+        + '<p>这个组合没有任何构建工具依赖，写完直接部署，是所有方案中最轻量的选择。</p>'
+        + '<h2>部署到 GitHub Pages</h2>'
+        + '<p>步骤如下：</p>'
+        + '<ol><li>在 GitHub 创建仓库 <code>username.github.io</code></li>'
+        + '<li>将所有静态文件推送到仓库</li>'
+        + '<li>在 Settings → Pages 中启用 GitHub Pages</li>'
+        + '<li>（可选）在仓库根目录添加 CNAME 文件绑定自定义域名</li></ol>'
+        + '<blockquote>小提示：确保 CNAME 文件中只有一行域名，末尾不要有空格或换行。</blockquote>'
+        + '<h2>自定义域名</h2>'
+        + '<p>以 <code>momot.top</code> 为例，在 DNS 服务商处添加一条 CNAME 记录指向 <code>username.github.io</code>，然后在仓库中添加 CNAME 文件即可完成绑定。</p>'
+        + '<p>整个过程不超过 10 分钟，却能拥有一个完全属于自己的独立博客。</p>'
+    },
+    "2": {
+      title: "为什么你应该拥有一个独立博客",
+      date: "2026年6月15日",
+      tags: ["思考", "写作", "互联网"],
+      content: '<p>在算法推荐主导的互联网时代，我们的信息获取越来越依赖于平台的分发。微信公众号、知乎、小红书、Twitter——这些平台决定了你能看到什么，也决定了你的内容能被谁看到。</p>'
+        + '<h2>内容主权的丧失</h2>'
+        + '<p>当你在第三方平台发布内容时，你实际上并不拥有这些内容。平台可以随时更改算法，让你的文章失去曝光；也可以调整政策，让你的账号受到限制甚至封禁。</p>'
+        + '<p>独立博客则完全不同。域名是你的，服务器是你的（或你租用的），HTML 文件是你的。没有人能删除你的内容，没有人能改变你的排版，也没有广告会突然插入到你的文章中间。</p>'
+        + '<h2>深度思考的空间</h2>'
+        + '<p>社交媒体鼓励短平快的内容——碎片化的观点、即时的反应、情绪化的表达。而博客天然适合长文和深度思考。写一篇 3000 字的博文需要数小时甚至数天，这个过程本身就是一次知识的整理和思考的深化。</p>'
+        + '<blockquote>写作不是为了记录已有的想法，而是为了发现自己真正在想什么。</blockquote>'
+        + '<h2>建立个人品牌</h2>'
+        + '<p>一个长期维护的个人博客是最好的简历。它展示了你的思考方式、专业能力和持续学习的习惯。对于技术人员、设计师、研究者来说，博客往往比 LinkedIn 更能打动未来的雇主或合作伙伴。</p>'
+        + '<h2>回归互联网的初心</h2>'
+        + '<p>早期的互联网是由无数个人主页和博客组成的去中心化网络。每个站点都有自己的风格、自己的声音。如今，独立博客运动正在回归，越来越多的人选择重建自己的数字花园。</p>'
+        + '<p>加入这个行列吧。拥有一个独立博客，就是拥有互联网上的一小块属于自己的土地。</p>'
+    },
+    "3": {
+      title: "CSS Grid 与 Flexbox 实战技巧",
+      date: "2026年6月10日",
+      tags: ["前端", "CSS", "布局"],
+      content: '<p>现代 CSS 布局有两个核心工具：<strong>Flexbox</strong> 和 <strong>CSS Grid</strong>。它们并非竞争关系，而是互补的。掌握它们的适用场景，是写出优雅 CSS 的关键。</p>'
+        + '<h2>Flexbox：一维布局之王</h2>'
+        + '<p>Flexbox 擅长处理单一方向（行或列）的排列。以下场景首选 Flexbox：</p>'
+        + '<ul><li>导航栏的水平菜单</li><li>卡片内的元素排列（标题、描述、按钮纵向排列）</li><li>居中对齐单个元素</li><li>等分布局的简单场景</li></ul>'
+        + '<pre><code>.nav { display: flex; justify-content: space-between; align-items: center; }</code></pre>'
+        + '<h2>CSS Grid：二维布局专家</h2>'
+        + '<p>当布局同时涉及行和列时，Grid 是更好的选择：</p>'
+        + '<ul><li>整体页面布局（header / main / sidebar / footer）</li><li>瀑布流或卡片网格</li><li>复杂的响应式布局</li></ul>'
+        + '<pre><code>.post-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }</code></pre>'
+        + '<h2>何时混用</h2>'
+        + '<p>在实际项目中，两者经常混用。例如：整体页面用 Grid 划分大区域，每个区域内部用 Flexbox 处理子元素排列。这种组合能覆盖 99% 的布局需求。</p>'
+        + '<blockquote>简单法则：一个方向用 Flexbox，两个方向用 Grid。</blockquote>'
+    },
+    "4": {
+      title: "2026 年上半年阅读总结",
+      date: "2026年6月5日",
+      tags: ["阅读", "书单", "总结"],
+      content: '<p>上半年共读完 18 本书，涵盖技术、设计、人文三个领域。以下是最值得分享的几本。</p>'
+        + '<h2>技术类</h2>'
+        + '<p><strong>《Designing Data-Intensive Applications》</strong> — 数据处理领域的圣经级读物。深入讨论了分布式系统的核心问题：可靠性、可扩展性和可维护性。虽然技术细节可以更新，但思考框架永不过时。</p>'
+        + '<p><strong>《CSS in Depth》</strong> — 最好的 CSS 进阶书之一。不是罗列属性，而是讲解 CSS 的设计哲学：层叠、继承、格式化上下文。读完对 CSS 的理解会上一个台阶。</p>'
+        + '<h2>设计类</h2>'
+        + '<p><strong>《Refactoring UI》</strong> — 面向开发者的 UI 设计实战指南。不讲理论，只给可以直接用的技巧：层级、颜色、排版、间距。每一章都能立刻用到实际项目中。</p>'
+        + '<h2>人文类</h2>'
+        + '<p><strong>《思考，快与慢》</strong> — 重读经典。卡尼曼的双系统理论仍然是理解人类决策的最佳框架。在 AI 时代重读此书，对人机协作有了新的感悟。</p>'
+        + '<p><strong>《独居的一年》</strong> — 约翰·欧文的小说，关于失去与重建。文字细腻而有力，提醒我在代码之外，还有另一个同样重要的世界。</p>'
+    },
+    "5": {
+      title: "简约设计中的留白哲学",
+      date: "2026年5月28日",
+      tags: ["设计", "美学"],
+      content: '<p>在设计领域，"少即是多"（Less is More）是一句被引用到几乎滥觞的格言。但真正理解留白（White Space）的价值，需要实践的积累。</p>'
+        + '<h2>留白不是空白</h2>'
+        + '<p>留白是有意为之的设计选择，不是"没有放东西的地方"。它承担着多重功能：</p>'
+        + '<ul><li><strong>呼吸感</strong>：给内容以呼吸的空间，让读者不会感到压迫。</li>'
+        + '<li><strong>引导视线</strong>：通过留白形成视觉焦点，引导用户关注最重要的信息。</li>'
+        + '<li><strong>层次感</strong>：不同级别的留白区分内容的重要层级。</li>'
+        + '<li><strong>优雅感</strong>：充足的留白天然传递出品质与从容。</li></ul>'
+        + '<h2>实践原则</h2>'
+        + '<p>在设计这个博客时，我遵循了几个留白原则：最大内容宽度不超过 960px、行间距设为 1.8、段落间距充裕、导航栏与内容区间距充足。</p>'
+        + '<p>这些数值不是随意选择的——它们共同构成了读者阅读时的节奏感。</p>'
+        + '<blockquote>最好的设计是让人感觉不到设计的存在。</blockquote>'
+        + '<h2>留白与色彩</h2>'
+        + '<p>深蓝（#1a2a6c）作为主色调，金色（#c9a84c）作为点缀，大面积的白底或浅灰底作为背景。这种配色方案本身就在实践留白哲学——让少量强烈的色彩在大量中性空间中凸显。</p>'
+    },
+    "6": {
+      title: "域名选购指南：如何选一个好记又好看的域名",
+      date: "2026年5月20日",
+      tags: ["域名", "建站"],
+      content: '<p>域名是你在互联网上的门牌号。一个好的域名应该好记、好拼、好看。以下是选购域名时的一些实用建议。</p>'
+        + '<h2>选择后缀</h2>'
+        + '<p><code>.com</code> 仍然是首选，但好名字几乎被抢光了。如今 <code>.top</code>、<code>.io</code>、<code>.dev</code>、<code>.me</code> 等新后缀是很好的替代选择。关键是后缀与内容有关联——<code>.top</code> 简洁有力，适合个人品牌。</p>'
+        + '<h2>拼写原则</h2>'
+        + '<ul><li>尽量短——5 到 10 个字符最佳</li>'
+        + '<li>避免连字符——口头传播时容易出错</li>'
+        + '<li>避免数字替代字母（如"4"代替"for"）——看起来廉价</li>'
+        + '<li>读出来测试——在电话中口述是否容易听懂</li></ul>'
+        + '<h2>品牌一致性</h2>'
+        + '<p>域名应与你的品牌名一致。例如 <code>momot.top</code> 直接对应站点名 MoMot，用户不需要记忆额外的信息。</p>'
+        + '<h2>购买与续费</h2>'
+        + '<p>建议从 Namecheap、Cloudflare Registrar 或 Porkbun 等口碑好的注册商购买。注意首年低价后续费价格可能翻倍，购买前确认续费标准价格。</p>'
+        + '<p>开启自动续费和 WHOIS 隐私保护，防止因忘记续费导致域名被抢注。</p>'
+    }
+  };
+
+  var params = new URLSearchParams(window.location.search);
+  var id = params.get('id') || '1';
+  var post = posts[id] || posts['1'];
+
+  document.getElementById('page-title').textContent = post.title + ' - MoMot';
+
+  var article = document.getElementById('post-article');
+  var tagsHtml = post.tags.map(function(t) {
+    return '<span>' + t + '</span>';
+  }).join('');
+
+  article.innerHTML =
+    '<div class="post-header">'
+    + '<h1>' + post.title + '</h1>'
+    + '<div class="post-meta">' + post.date + ' &middot; ' + tagsHtml.split('</span>').length + ' 个标签</div>'
+    + '</div>'
+    + '<div class="post-content">' + post.content + '</div>'
+    + '<div class="post-footer">'
+    + '<a href="./index.html">&larr; 返回首页</a>'
+    + '</div>';
+})();
+</script>
+
+</body>
+</html>
