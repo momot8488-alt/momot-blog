@@ -174,8 +174,8 @@ function renderMarkdown(md) {
   // 有序列表
   html = html.replace(/^\d+\. (.+)$/gm, '<li>$1</li>');
 
-  // 链接
-  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  // 链接（排除图片语法 ![...](...)）
+  html = html.replace(/(?<!!)\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
 
   // 图片
   html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
