@@ -92,7 +92,7 @@ function isLoggedIn() {
 }
 
 function doLogin(password) {
-  if (password === 'admin123') {
+  if (password === '8488') {
     sessionStorage.setItem(AUTH_KEY, 'true');
     return true;
   }
@@ -132,8 +132,9 @@ function renderMarkdown(md) {
   if (!md) return '';
   var html = md;
 
-  // 兼容旧文章的 raw 图片链接（raw.githubusercontent.com 在国内常不可达），统一替换为站点域名 momot.top
-  html = html.replace(/https:\/\/raw\.githubusercontent\.com\/momot8488-alt\/momot-blog\/main\//g, 'https://momot.top/');
+  // 兼容旧文章的 raw/momot.top 图片链接，统一替换为 jsDelivr CDN 域名（raw 国内不可达、momot.top https 证书未生效）
+  html = html.replace(/https:\/\/raw\.githubusercontent\.com\/momot8488-alt\/momot-blog\/main\//g, 'https://cdn.jsdelivr.net/gh/momot8488-alt/momot-blog@main/');
+  html = html.replace(/https:\/\/momot\.top\//g, 'https://cdn.jsdelivr.net/gh/momot8488-alt/momot-blog@main/');
 
   // 转义 HTML 实体（先保护代码块）
   var codeBlocks = [];
