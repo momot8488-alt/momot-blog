@@ -133,8 +133,9 @@ function renderMarkdown(md) {
   var html = md;
 
   // 兼容旧文章的 raw/jsDelivr 图片链接，统一替换为站点域名 momot.top（raw 与 jsDelivr 国内网络不稳定，momot.top https 证书已生效）
-  html = html.replace(/https:\/\/raw\.githubusercontent\.com\/momot8488-alt\/momot-blog\/main\//g, 'https://momot.top/');
-  html = html.replace(/https:\/\/cdn\.jsdelivr\.net\/gh\/momot8488-alt\/momot-blog@main\//g, 'https://momot.top/');
+  html = html.replace(/https:\/\/raw\.githubusercontent\.com\/momot8488-alt\/momot-blog\/(main|master)\//g, 'https://momot.top/');
+  html = html.replace(/https:\/\/cdn\.jsdelivr\.net\/gh\/momot8488-alt\/momot-blog@(main|master)\//g, 'https://momot.top/');
+  html = html.replace(/https:\/\/github\.com\/momot8488-alt\/momot-blog\/raw\/(main|master)\//g, 'https://momot.top/');
 
   // 转义 HTML 实体（先保护代码块）
   var codeBlocks = [];
