@@ -132,9 +132,9 @@ function renderMarkdown(md) {
   if (!md) return '';
   var html = md;
 
-  // 兼容旧文章的 raw/momot.top 图片链接，统一替换为 jsDelivr CDN 域名（raw 国内不可达、momot.top https 证书未生效）
-  html = html.replace(/https:\/\/raw\.githubusercontent\.com\/momot8488-alt\/momot-blog\/main\//g, 'https://cdn.jsdelivr.net/gh/momot8488-alt/momot-blog@main/');
-  html = html.replace(/https:\/\/momot\.top\//g, 'https://cdn.jsdelivr.net/gh/momot8488-alt/momot-blog@main/');
+  // 兼容旧文章的 raw/jsDelivr 图片链接，统一替换为站点域名 momot.top（raw 与 jsDelivr 国内网络不稳定，momot.top https 证书已生效）
+  html = html.replace(/https:\/\/raw\.githubusercontent\.com\/momot8488-alt\/momot-blog\/main\//g, 'https://momot.top/');
+  html = html.replace(/https:\/\/cdn\.jsdelivr\.net\/gh\/momot8488-alt\/momot-blog@main\//g, 'https://momot.top/');
 
   // 转义 HTML 实体（先保护代码块）
   var codeBlocks = [];
@@ -409,8 +409,8 @@ function initAdmin() {
         }
         return res.json();
       }).then(function(result) {
-        // 图片 URL（jsDelivr CDN：raw 国内不可达、momot.top https 证书未生效）
-        var imageUrl = 'https://cdn.jsdelivr.net/gh/' + GITHUB_CONFIG.owner + '/' + GITHUB_CONFIG.repo + '@' + GITHUB_CONFIG.branch + '/' + imagePath;
+        // 图片 URL（站点域名 momot.top：raw 与 jsDelivr 国内网络不稳定，momot.top https 证书已生效）
+        var imageUrl = 'https://momot.top/' + imagePath;
         // 插入 Markdown 图片语法到编辑器光标位置
         var mdImg = '![' + file.name + '](' + imageUrl + ')';
         var ta = formContent;
