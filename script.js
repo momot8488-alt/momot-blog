@@ -132,6 +132,9 @@ function renderMarkdown(md) {
   if (!md) return '';
   var html = md;
 
+  // 兼容旧文章的 raw 图片链接（raw.githubusercontent.com 在国内常不可达），统一替换为站点域名 momot.top
+  html = html.replace(/https:\/\/raw\.githubusercontent\.com\/momot8488-alt\/momot-blog\/main\//g, 'https://momot.top/');
+
   // 转义 HTML 实体（先保护代码块）
   var codeBlocks = [];
   html = html.replace(/```(\w*)\n([\s\S]*?)```/g, function(_, lang, code) {
