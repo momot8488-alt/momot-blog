@@ -212,6 +212,11 @@ function renderMarkdown(md) {
   return result.join('\n');
 }
 
+// 摘要清洗：去除 Markdown 图片语法与符号，转义 HTML，避免卡片露出 markdown 源码
+function cleanSummary(s) {
+  return (s || '').replace(/!\[[^\]]*\]\([^)]*\)/g, '').replace(/[#*`>]/g, '').replace(/</g, '&lt;').replace(/>/g, '&gt;').trim();
+}
+
 // ============================================================
 //  Index Page: 动态加载文章卡片
 // ============================================================
@@ -232,7 +237,7 @@ function renderPostGrid(posts) {
       '<div class="post-card-body">' +
         '<span class="post-card-date">' + post.date + '</span>' +
         '<h3><a href="./post.html?id=' + post.id + '">' + post.title + '</a></h3>' +
-        '<p class="post-card-excerpt">' + post.summary + '</p>' +
+        '<p class="post-card-excerpt">' + cleanSummary(post.summary) + '</p>' +
         '<div class="post-card-tags">' + tagsHtml + '</div>' +
       '</div>';
     grid.appendChild(card);
@@ -403,8 +408,8 @@ function initAdmin() {
         }
         return res.json();
       }).then(function(result) {
-        // 图片 URL
-        var imageUrl = 'https://momot.top/' + imagePath;
+        // 图片 URL（jsDelivr CDN：raw 国内不可达、momot.top https 证书未生效）
+        var imageUrl = 'https://cdn.jsdelivr.net/gh/' + GITHUB_CONFIG.owner + '/' + GITHUB_CONFIG.repo + '@' + GITHUB_CONFIG.branch + '/' + imagePath;
         // 插入 Markdown 图片语法到编辑器光标位置
         var mdImg = '![' + file.name + '](' + imageUrl + ')';
         var ta = formContent;
